@@ -24,7 +24,7 @@ const Base = styled.section`
 `;
 
 const Container = styled.article`
-  width: 600px;
+  width: 500px;
   display: flex;
   flex-direction: column;
 `;
