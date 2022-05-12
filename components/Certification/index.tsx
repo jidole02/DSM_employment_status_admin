@@ -1,20 +1,24 @@
-import React, { ChangeEvent, Fragment, KeyboardEvent, useRef } from "react";
+import React, { Fragment, KeyboardEvent, useRef } from "react";
 import * as common from "@/styles/common";
 import styled from "@emotion/styled";
 import { ADMIN_PASSWORD } from "@/constant/admin";
 import { useRouter } from "next/router";
+import { useRecoilState } from "recoil";
+import { isLoginState } from "./../../recoil/admin";
 
 function Certification() {
   const pswInputRef = useRef<HTMLInputElement>(null);
   const admin_psw = ADMIN_PASSWORD;
   const router = useRouter();
+  const [_isLogin, setIsLogin] = useRecoilState(isLoginState);
 
   const certificate = () => {
     const input_psw = pswInputRef.current?.value as string;
     if (input_psw === admin_psw) {
-      alert("ok");
+      setIsLogin(true);
+      router.push("/manage");
     } else {
-      alert("no");
+      alert("비밀번호가 잘못되었습니다.");
     }
   };
 
