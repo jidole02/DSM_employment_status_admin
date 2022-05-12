@@ -11,7 +11,7 @@ export default function Department() {
         <Name isShow={showList}>소프트웨어 개발과</Name>
         <Arrow isShow={showList} />
       </NameContainer>
-      <StudnetWrapper>
+      <StudnetWrapper isShow={showList}>
         <Student />
         <Student />
         <Student />
@@ -46,15 +46,16 @@ const Name = styled.h1<{ isShow: boolean }>`
   color: ${({ isShow }) => (isShow ? "var(--main)" : "var(--text)")};
 `;
 
-const StudnetWrapper = styled.div`
+const StudnetWrapper = styled.div<{ isShow: boolean }>`
   display: flex;
   flex-direction: column;
   gap: 20px;
   margin-top: 20px;
   padding-right: 30px;
-  padding-bottom: 20px;
-  max-height: 200px;
   overflow-y: scroll;
+  height: ${({ isShow }) => (isShow ? "200px" : "0px")};
+  padding-bottom: ${({ isShow }) => (isShow ? "20px" : "0px")};
+  transition: 0.3s;
   ::-webkit-scrollbar {
     width: 5px;
   }

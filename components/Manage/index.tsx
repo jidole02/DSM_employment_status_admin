@@ -24,6 +24,9 @@ function Manage() {
       <Description> 변경하기 버튼을 눌러 저장해주세요</Description>
       <DepartmentContainer>
         <Department />
+        <Department />
+        <Department />
+        <Department />
       </DepartmentContainer>
     </Fragment>
   );
@@ -42,4 +45,5 @@ const DepartmentContainer = styled.div`
   flex-direction: column;
   gap: 20px;
   margin-top: 40px;
+  padding-bottom: 100px;
 `;
