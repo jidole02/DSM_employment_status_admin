@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { useEffect } from "react";
 import * as common from "@/styles/common";
 import styled from "@emotion/styled";
 import { useRecoilValue } from "recoil";
@@ -19,7 +19,7 @@ function Manage() {
 
   useEffect(checkUserLoginState, []);
   return (
-    <Fragment>
+    <Wrapper>
       <Title>DSM 취업률 관리</Title>
       <Description> 변경하기 버튼을 눌러 저장해주세요</Description>
       <DepartmentContainer>
@@ -28,11 +28,17 @@ function Manage() {
         <Department />
         <Department />
       </DepartmentContainer>
-    </Fragment>
+      <SaveButton>변경하기</SaveButton>
+    </Wrapper>
   );
 }
 
 export default Manage;
+
+const Wrapper = styled.div`
+  width: 100%;
+  padding-bottom: 100px;
+`;
 
 const Title = styled(common.Title)``;
 
@@ -45,5 +51,15 @@ const DepartmentContainer = styled.div`
   flex-direction: column;
   gap: 20px;
   margin-top: 40px;
-  padding-bottom: 100px;
+`;
+
+const SaveButton = styled.button`
+  width: 100%;
+  height: 50px;
+  border-radius: 5px;
+  background-color: var(--main);
+  color: var(--white);
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 30px;
 `;
