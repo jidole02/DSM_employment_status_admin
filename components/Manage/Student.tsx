@@ -1,12 +1,26 @@
 import styled from "@emotion/styled";
+import { StudentInfor } from "./studentInfor";
 
-export default function Student() {
+interface Props {
+  student: StudentInfor;
+}
+
+export default function Student({ student }: Props) {
   return (
     <Wrapper>
       <div className="student-name">
-        <h3>3117정지원</h3>
+        <h3>
+          {student.student_number}
+          {student.name}
+        </h3>
       </div>
-      <div>취업 미정</div>
+      <div
+        style={
+          student.is_found_job ? { color: "#2997ff", fontWeight: "bold" } : {}
+        }
+      >
+        {student.is_found_job ? "취업 확정" : "취업 미정"}
+      </div>
       <div>
         <button>상태 변경</button>
       </div>

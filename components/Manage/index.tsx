@@ -5,6 +5,7 @@ import { useRecoilValue } from "recoil";
 import { isLoginState } from "./../../recoil/admin";
 import { useRouter } from "next/router";
 import Department from "./Department";
+import { departments } from "./departments";
 
 function Manage() {
   const isLogin = useRecoilValue(isLoginState);
@@ -23,10 +24,9 @@ function Manage() {
       <Title>DSM 취업률 관리</Title>
       <Description> 변경하기 버튼을 눌러 저장해주세요</Description>
       <DepartmentContainer>
-        <Department />
-        <Department />
-        <Department />
-        <Department />
+        {departments.map((_, index) => (
+          <Department name={_} key={index} index={index} />
+        ))}
       </DepartmentContainer>
       <SaveButton>변경하기</SaveButton>
     </Wrapper>

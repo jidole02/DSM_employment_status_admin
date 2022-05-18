@@ -1,23 +1,37 @@
 import styled from "@emotion/styled";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Arrow from "./../../assets/arrow";
 import Student from "./Student";
+import axios from "axios";
+import { StudentInfor } from "./studentInfor";
 
-export default function Department() {
+interface Props {
+  name: string;
+  index: number;
+}
+
+export default function Department({ name, index }: Props) {
   const [showList, setShowList] = useState(false);
+  const [students, setStudents] = useState<StudentInfor[]>([]);
+  const department_id = index + 2;
+
+  useEffect(() => {
+    axios
+      .get(`http://3.35.90.39:8080/v1/student/department/${department_id}`)
+      .then((res) => {
+        setStudents(res.data);
+      });
+  }, []);
   return (
     <Wrapper>
       <NameContainer onClick={() => setShowList(!showList)}>
-        <Name isShow={showList}>소프트웨어 개발과</Name>
+        <Name isShow={showList}>{name}</Name>
         <Arrow isShow={showList} />
       </NameContainer>
       <StudnetWrapper isShow={showList}>
-        <Student />
-        <Student />
-        <Student />
-        <Student />
-        <Student />
-        <Student />
+        {students.map((_, index) => (
+          <Student student={_} key={index} />
+        ))}
       </StudnetWrapper>
     </Wrapper>
   );
@@ -44,6 +58,7 @@ const NameContainer = styled.div`
 const Name = styled.h1<{ isShow: boolean }>`
   font-size: 16px;
   color: ${({ isShow }) => (isShow ? "var(--main)" : "var(--text)")};
+  width: 150px;
 `;
 
 const StudnetWrapper = styled.div<{ isShow: boolean }>`
