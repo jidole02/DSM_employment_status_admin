@@ -1,11 +1,39 @@
 import styled from "@emotion/styled";
 import { StudentInfor } from "./studentInfor";
+import axios from "axios";
+import { useState } from "react";
 
 interface Props {
   student: StudentInfor;
 }
 
 export default function Student({ student }: Props) {
+  const [loading, setLoading] = useState(false);
+  const [isFoundJob, setIsFoundJob] = useState(student.is_found_job);
+
+  const jobCancellation = () => {
+    setLoading(true);
+    axios
+      .delete(
+        `http://3.35.90.39:8080/v1/student/${student.serial_number}/status`
+      )
+      .then(() => {
+        setLoading(true);
+        setIsFoundJob(false);
+      });
+  };
+
+  const jobConfirmation = () => {
+    setLoading(true);
+    axios
+      .patch(
+        `http://3.35.90.39:8080/v1/student/${student.serial_number}/status`
+      )
+      .then(() => {
+        setLoading(true);
+        setIsFoundJob(true);
+      });
+  };
   return (
     <Wrapper>
       <div className="student-name">
@@ -14,15 +42,13 @@ export default function Student({ student }: Props) {
           {student.name}
         </h3>
       </div>
-      <div
-        style={
-          student.is_found_job ? { color: "#2997ff", fontWeight: "bold" } : {}
-        }
-      >
-        {student.is_found_job ? "취업 확정" : "취업 미정"}
+      <div style={isFoundJob ? { color: "#2997ff", fontWeight: "bold" } : {}}>
+        {isFoundJob ? "취업 확정" : "취업 미정"}
       </div>
       <div>
-        <button>상태 변경</button>
+        <button onClick={isFoundJob ? jobCancellation : jobConfirmation}>
+          상태 변경
+        </button>
       </div>
     </Wrapper>
   );

@@ -22,13 +22,13 @@ function Manage() {
   return (
     <Wrapper>
       <Title>DSM 취업률 관리</Title>
-      <Description> 변경하기 버튼을 눌러 저장해주세요</Description>
+      <Description>학생들의 취업 상태를 변경할 수 있습니다.</Description>
       <DepartmentContainer>
         {departments.map((_, index) => (
           <Department name={_} key={index} index={index} />
         ))}
       </DepartmentContainer>
-      <SaveButton>변경하기</SaveButton>
+      {/*       <SaveButton>변경하기</SaveButton> */}
     </Wrapper>
   );
 }
